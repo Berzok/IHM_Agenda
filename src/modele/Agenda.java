@@ -60,4 +60,15 @@ public class Agenda implements Comparable<Evenement> {
 				nbEvts++ ;
 		return nbEvts ;
 	}
-}
+	public String toString(int parIndice)
+		{
+		String leString =  "Le "+ this.listEvts.get(parIndice).getChDate() + ", " + this.listEvts.get(parIndice).getChNom() + " à " + this.listEvts.get(parIndice).getChLieu();
+		return leString;
+		}
+	}
+
+
+
+
+
+

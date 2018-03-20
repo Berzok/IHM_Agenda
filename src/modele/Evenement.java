@@ -1,5 +1,7 @@
 package modele;
 
+import javax.swing.JButton;
+
 
 public class Evenement{
 	private Date chDate;
@@ -41,16 +43,16 @@ public class Evenement{
 		this.chLieu = parLieu;
 	}
 	
-	public static Evenement lireEvenement() throws ExceptionDate{
-		System.out.println("Entrer Date");
-		Date d1 = Date.lireDate();
-		System.out.println("Entrer nom");
-		String Nom = Clavier.lireString();
-		System.out.println("Entrer lieu");
-		String Lieu = Clavier.lireString();
-		Evenement E = new Evenement(d1, Nom, Lieu);
-		return E;
-	}//lireEvenement
+//	public static Evenement lireEvenement() throws ExceptionDate{
+//		System.out.println("Entrer Date");
+//		Date d1 = Date.lireDate();
+//		System.out.println("Entrer nom");
+//		String Nom = Clavier.lireString();
+//		System.out.println("Entrer lieu");
+//		String Lieu = Clavier.lireString();
+//		Evenement E = new Evenement(d1, Nom, Lieu);
+//		return E;
+//	}//lireEvenement
 	
 	public int comparTo(Evenement parEvent){
 //		if (this.chDate.comparTo(parEvent.chDate)!=0)
@@ -61,5 +63,10 @@ public class Evenement{
 				return this.chNom.compareTo(parEvent.chNom);//les noms sont identiques
 		return this.chLieu.compareTo(parEvent.chLieu);
 	}//comparTo
+
+	public JButton getSource() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }//Evenement

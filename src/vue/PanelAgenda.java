@@ -18,7 +18,7 @@ public class PanelAgenda extends JPanel
 		leAgenda.ajout(new Evenement(new Date(5, 7, 1741), "Tourte", "Morrowind"));
 		leAgenda.ajout(new Evenement(new Date(13, 4, 2009), "Terezi", "Skaia"));
 		leAgenda.afficherContenu();
-		PanelCalendrier lePanel = new PanelCalendrier();
+		PanelCalendrier lePanel = new PanelCalendrier(chControleur);
 		PanelFormulaire lePanel1 = new PanelFormulaire(chControleur);
 		chControleur = new Controleur(leAgenda, lePanel1, lePanel);
 		GroupLayout groupLayout = new GroupLayout(this);

@@ -39,6 +39,7 @@ public class PanelFormulaire extends JPanel implements ActionListener
 	private static JComboBox chMinuteDebut;
 	private static JComboBox chHeureFin;
 	private static JComboBox chMinuteFin;
+	private JLabel chLabelDate = new JLabel();
 	private static Date chDate;
 	/**
 	 * Create the panel.
@@ -67,7 +68,7 @@ public class PanelFormulaire extends JPanel implements ActionListener
 		gbc_LabelTitre.gridy = 2;
 		LabelTitre.requestFocus();
 		
-		JLabel chLabelDate = new JLabel(dfl.format(today));
+		chLabelDate.setText(dfl.format(today));
 		chLabelDate.setFont(new Font("Tahoma", Font.BOLD, 12));
 		GridBagConstraints gbc_chLabelDate = new GridBagConstraints();
 		gbc_chLabelDate.anchor = GridBagConstraints.NORTH;
@@ -219,9 +220,12 @@ public class PanelFormulaire extends JPanel implements ActionListener
 		
 		return chDate;
 		}
-	public void setDate(DateFormat parDate)
+	public void setDate(String parString)
 		{
-		chDate = parDate;
+		System.out.println(parString);
+		this.revalidate();
+		this.repaint();
+		chLabelDate.setText(parString);
 		}
 	
 	public void reset()

@@ -13,16 +13,20 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 
-public class PanelCalendrier  extends JPanel implements ActionListener {
+public class PanelCalendrier  extends JPanel implements ActionListener
+	{
+	static Controleur leControleur;
+	
 	String tabNomBoutons[] = {"<--", "-->"};
 	
 	JButton tabBoutons[] = new JButton[tabNomBoutons.length];
 	JLabel tabEtiquettes[] = new JLabel[12];
 	String tabIntitules[];
 	final static String[] chMois = {"Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"};
-	PanelMois chPanel = new PanelMois(new Date().getMois());
-	public PanelCalendrier()
+	static PanelMois chPanel;
+	public PanelCalendrier(Controleur parControleur)
 		{
+		chPanel = new PanelMois(leControleur, new Date().getMois());
 		JPanel panelSud = new JPanel();
 		for (int i=0 ; i<tabNomBoutons.length ; i++)
 			{
@@ -54,21 +58,21 @@ public class PanelCalendrier  extends JPanel implements ActionListener {
 		}
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
+			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(41)
-					.addComponent(panelSud, GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)
+					.addComponent(panelSud, GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
 					.addGap(67))
-				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(chPanel, GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addComponent(chPanel, GroupLayout.PREFERRED_SIZE, 445, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+			groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(chPanel, GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
+					.addComponent(chPanel, GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
 					.addGap(44)
 					.addComponent(panelSud, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())

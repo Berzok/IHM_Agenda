@@ -5,14 +5,17 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 
 public class PanelMois extends JPanel
 	{
-	JLabel[] chJoursSemaine = new JLabel[7];
+	static Controleur leControleur;
+	final static JLabel[] chJoursSemaine = new JLabel[7];
 	JButton[] chLesJours = new JButton[31]; 
-	public PanelMois(int parNumMois)
+	public PanelMois(Controleur parControleur, int parNumMois)
 		{
-		String[] laSemaine = {"Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"};
+		String[] laSemaine = {"lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"};
+		leControleur = parControleur;
 		
 		for(int i=0; i<laSemaine.length; i++)
 			{
@@ -22,6 +25,7 @@ public class PanelMois extends JPanel
 		for(int i=0; i<31; i++)
 			{
 			chLesJours[i] = new JButton((i+1+""));
+			chLesJours[i].addActionListener(leControleur);
 			chLesJours[i].setFocusPainted(false);
 			chLesJours[i].setContentAreaFilled(false);
 			}

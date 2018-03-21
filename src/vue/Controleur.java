@@ -28,17 +28,23 @@ public class Controleur implements ActionListener
 		}
 	public void actionPerformed(ActionEvent parEvent)
 		{
-		if(parEvent.getSource().equals(chPanelCalendrier.chPanel.chLesJours))
+		for(int i=0; i<PanelCalendrier.chPanel.chLesJours.length; i++)
 			{
-			Date laDate = new Date();
-			DateFormat dfl = DateFormat.getDateInstance(DateFormat.FULL);
-			chPanelFormulaire.setDate(dfl);
+			if(parEvent.getSource().equals((PanelCalendrier.chPanel.chLesJours[i])))
+				{
+				DateFormat dfl = DateFormat.getDateInstance(DateFormat.FULL);
+				String lautreDate = dfl.format(new Date());
+				String[] lautreDate2 = lautreDate.split(" ");
+				String laDate = PanelCalendrier.chPanel.chJoursSemaine[i%7].getText() + " " + PanelCalendrier.chPanel.chLesJours[i].getText() + " " + lautreDate2[2] + " " + lautreDate2[3];
+				
+				chPanelFormulaire.setDate(laDate);
+				}
 			}
 		if(parEvent.getSource().equals(PanelFormulaire.chBoutonAjout))
 			{
 			Evenement leEvent = PanelFormulaire.getEvenement();
 			chAgenda.ajout(leEvent);
-			JOptionPane.showMessageDialog((JButton) leEvent.getSource(), chAgenda.toString(2));
+			JOptionPane.showMessageDialog((JButton) leEvent.getSource(), chAgenda.toString(1));
 			chPanelFormulaire.reset();
 //			chPanelCalendrier.setDate(chPanelFormulaire.getDate());
 			}

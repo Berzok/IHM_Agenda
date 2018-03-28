@@ -46,7 +46,7 @@ public class FenetreAgenda extends JFrame {
 		setTitle("Agenda");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
-		setSize(700, 400);
+		setSize(750, 400);
 		PanelAgenda panelAgenda = new PanelAgenda();
 		getContentPane().add(panelAgenda);
 		panelAgenda.setLayout(new BoxLayout(panelAgenda, BoxLayout.LINE_AXIS));

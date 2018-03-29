@@ -6,6 +6,9 @@ import javax.swing.JPanel;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.text.spi.DateFormatProvider;
+import java.util.Calendar;
+import java.util.Date;
 
 public class PanelMois extends JPanel
 	{
@@ -14,6 +17,8 @@ public class PanelMois extends JPanel
 	JButton[] chLesJours = new JButton[31]; 
 	public PanelMois(Controleur parControleur, int parNumMois)
 		{
+		int joursDebutMois = Calendar.getInstance().getMinimalDaysInFirstWeek();
+		
 		String[] laSemaine = {"lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"};
 		leControleur = parControleur;
 		
@@ -39,7 +44,6 @@ public class PanelMois extends JPanel
 			{
 			this.add(chLesJours[i]);
 			}
-		
 		
 		}
 	}

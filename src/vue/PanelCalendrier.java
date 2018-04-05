@@ -26,7 +26,9 @@ public class PanelCalendrier  extends JPanel implements ActionListener
 	static PanelMois chPanel;
 	public PanelCalendrier(Controleur parControleur)
 		{
-		chPanel = new PanelMois(leControleur, new Date().getMois());
+		chPanel = new PanelMois(leControleur, new modele.Date());
+		
+		
 		JPanel panelSud = new JPanel();
 		for (int i=0 ; i<tabNomBoutons.length ; i++)
 			{
@@ -83,21 +85,19 @@ public class PanelCalendrier  extends JPanel implements ActionListener
 		
 	} //constrcuteur du panelfils
 
-	@Override
+
 	public void actionPerformed(ActionEvent parEvt)
 		{
-//		if (parEvt.getSource() == tabBoutons[0]) {
-//			gestionnaireCard.first(panelCentre);	
-//		}
-//		else if (parEvt.getSource() == tabBoutons[1]) {
-//			gestionnaireCard.previous(panelCentre);
-//		}
-//		else if (parEvt.getSource() == tabBoutons[2]) {
-//			gestionnaireCard.next(panelCentre);
-//		}
-//		else if (parEvt.getSource() == tabBoutons[3]) {
-//			gestionnaireCard.last(panelCentre);
-//		}
+		for(int i=0; i<tabBoutons.length; i++)
+			{
+			if(parEvt.getSource() == tabBoutons[i])
+				{
+				chPanel = new PanelMois(leControleur, new modele.Date(new modele.Date().getJour(), new modele.Date().getMois()+1, new modele.Date().getAnnee()));
+				this.repaint();
+				this.revalidate();
+				break;
+				}
+			}
 		}
 	public void enregistreEcouteur(Controleur controleur)
 		{

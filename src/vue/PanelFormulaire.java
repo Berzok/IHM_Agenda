@@ -55,7 +55,7 @@ public class PanelFormulaire extends JPanel implements ActionListener
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] {10, 50, 0, 2, 38, 3, 3, 5, 5, 11};
 		gridBagLayout.rowHeights = new int[] {0, 0, 5, 10, 11, 14, 9, 10, 11, 10, 0, 48};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		setLayout(gridBagLayout);
 		
@@ -164,6 +164,7 @@ public class PanelFormulaire extends JPanel implements ActionListener
 		JLabel label = new JLabel(":");
 		GridBagConstraints gbc_label = new GridBagConstraints();
 		gbc_label.insets = new Insets(0, 0, 5, 5);
+		gbc_label.anchor = GridBagConstraints.WEST;
 //		gbc_label.insets = new Insets(0, 0, 5, 5);
 		gbc_label.gridx = 4;
 		gbc_label.gridy = 7;
@@ -197,6 +198,7 @@ public class PanelFormulaire extends JPanel implements ActionListener
 		JLabel label_1 = new JLabel(":");
 		GridBagConstraints gbc_label_1 = new GridBagConstraints();
 		gbc_label_1.insets = new Insets(0, 0, 5, 5);
+		gbc_label_1.anchor = GridBagConstraints.WEST;
 //		gbc_label_1.insets = new Insets(0, 0, 5, 5);
 		gbc_label_1.gridx = 4;
 		gbc_label_1.gridy = 8;

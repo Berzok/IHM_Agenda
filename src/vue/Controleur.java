@@ -35,7 +35,7 @@ public class Controleur implements ActionListener
 				DateFormat dfl = DateFormat.getDateInstance(DateFormat.FULL);
 				String lautreDate = dfl.format(new Date());
 				String[] lautreDate2 = lautreDate.split(" ");
-				String laDate = PanelCalendrier.chPanel.chJoursSemaine[i%7].getText() + " " + PanelCalendrier.chPanel.chLesJours[i].getText() + " " + lautreDate2[2] + " " + lautreDate2[3];
+				String laDate = PanelCalendrier.chPanel.chJoursSemaine[i%7-1].getText() + " " + PanelCalendrier.chPanel.chLesJours[i].getText() + " " + lautreDate2[2] + " " + lautreDate2[3];
 				
 				chPanelFormulaire.setDate(laDate);
 				}

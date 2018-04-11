@@ -40,7 +40,7 @@ public class PanelFormulaire extends JPanel implements ActionListener
 	private static JComboBox chHeureFin;
 	private static JComboBox chMinuteFin;
 	private JLabel chLabelDate = new JLabel();
-	private static Date chDate;
+	modele.Date chDate;
 	/**
 	 * Create the panel.
 	 * @throws ParseException 
@@ -236,17 +236,16 @@ public class PanelFormulaire extends JPanel implements ActionListener
 	
 	
 	
-	public Date getDate()
+	public modele.Date getDate()
 		{
-		
 		return chDate;
 		}
-	public void setDate(String parString)
+	public void setDate(modele.Date parDate)
 		{
-		System.out.println(parString);
+		chDate = parDate;
 		this.revalidate();
 		this.repaint();
-		chLabelDate.setText(parString);
+		chLabelDate.setText(chDate.toString());
 		}
 	
 	public void reset()

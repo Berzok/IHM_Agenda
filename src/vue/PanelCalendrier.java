@@ -15,19 +15,20 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class PanelCalendrier  extends JPanel implements ActionListener
 	{
-	static Controleur leControleur;
+	Controleur leControleur;
 	
 	String tabNomBoutons[] = {"<--", "-->"};
-	
+	modele.Date leJour;
 	JButton tabBoutons[] = new JButton[tabNomBoutons.length];
 	JLabel tabEtiquettes[] = new JLabel[12];
 	String tabIntitules[];
 	final static String[] chMois = {"Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"};
 	static PanelMois chPanel;
-	public PanelCalendrier(Controleur parControleur)
+	public PanelCalendrier(Controleur parControleur, modele.Date today)
 		{
-		chPanel = new PanelMois(leControleur, new modele.Date());
-		
+		leControleur = parControleur;
+		chPanel = new PanelMois(leControleur, today);
+		leJour = today;
 		
 		JPanel panelSud = new JPanel();
 		for (int i=0 ; i<tabNomBoutons.length ; i++)
@@ -90,14 +91,20 @@ public class PanelCalendrier  extends JPanel implements ActionListener
 		{
 		for(int i=0; i<tabBoutons.length; i++)
 			{
-			if(parEvt.getSource() == tabBoutons[i])
+			if(parEvt.getSource() == tabBoutons[1])
 				{
-				chPanel = new PanelMois(leControleur, new modele.Date(new modele.Date().getJour(), new modele.Date().getMois()+1, new modele.Date().getAnnee()));
-				this.repaint();
-				this.revalidate();
+				leJour = new modele.Date(leJour.getJour(), leJour.getMois()+1, leJour.getAnnee()); 
+				chPanel = new PanelMois(leControleur, leJour);
+				System.out.println("le bouton: " + leJour.toString());
+				leControleur.chPanelFormulaire.chDate = leJour;
+				this.truc(leJour);
 				break;
 				}
 			}
+		}
+	public void truc(modele.Date parDate)
+		{
+		leControleur.changerDateFormulaire(parDate);
 		}
 	public void enregistreEcouteur(Controleur controleur)
 		{
@@ -106,4 +113,8 @@ public class PanelCalendrier  extends JPanel implements ActionListener
 			chPanel.chLesJours[i].addActionListener(controleur);
 			}
 		}
-}
+	public void setDate(modele.Date parDate)
+		{
+		leJour = parDate;
+		}
+	}

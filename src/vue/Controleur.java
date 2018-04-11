@@ -26,17 +26,21 @@ public class Controleur implements ActionListener
 		chPanelFormulaire.enregistreEcouteur(this);
 		chPanelCalendrier.enregistreEcouteur(this);
 		}
+	public void changerDateFormulaire(modele.Date parDate)
+		{
+		System.out.println("Controleur ok");
+		chPanelFormulaire.setDate(parDate);
+		}
 	public void actionPerformed(ActionEvent parEvent)
 		{
 		for(int i=0; i<PanelCalendrier.chPanel.chLesJours.length; i++)
 			{
 			if(parEvent.getSource().equals((PanelCalendrier.chPanel.chLesJours[i])))
 				{
-				DateFormat dfl = DateFormat.getDateInstance(DateFormat.FULL);
-				String lautreDate = dfl.format(new Date());
-				String[] lautreDate2 = lautreDate.split(" ");
-				String laDate = PanelCalendrier.chPanel.chJoursSemaine[i%7-1].getText() + " " + PanelCalendrier.chPanel.chLesJours[i].getText() + " " + lautreDate2[2] + " " + lautreDate2[3];
-				
+				modele.Date lautreDate = new modele.Date();
+				modele.Date laDate = new modele.Date(Integer.parseInt(PanelCalendrier.chPanel.chLesJours[i].getText()), lautreDate.getMois(), lautreDate.getAnnee());
+//				String laDate = PanelCalendrier.chPanel.chJoursSemaine[i%7-1].getText() + " " + PanelCalendrier.chPanel.chLesJours[i].getText() + " " + lautreDate2[2] + " " + lautreDate2[3];
+				chPanelCalendrier.setDate(laDate);
 				chPanelFormulaire.setDate(laDate);
 				}
 			}
@@ -46,7 +50,6 @@ public class Controleur implements ActionListener
 			chAgenda.ajout(leEvent);
 			JOptionPane.showMessageDialog((JButton) leEvent.getSource(), chAgenda.toString(1));
 			chPanelFormulaire.reset();
-//			chPanelCalendrier.setDate(chPanelFormulaire.getDate());
 			}
 		}
 	}

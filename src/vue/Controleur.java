@@ -14,15 +14,18 @@ import modele.*;
 
 public class Controleur implements ActionListener
 	{
-	Agenda chAgenda;
-	PanelFormulaire chPanelFormulaire;
-	PanelCalendrier chPanelCalendrier;
+	static Agenda chAgenda;
+	static PanelFormulaire chPanelFormulaire;
+	static PanelCalendrier chPanelCalendrier;
+	static PanelAgenda chPanelAgenda;
+	static modele.Date chDate;
 	
-	public Controleur (Agenda parAgenda, PanelFormulaire parPanelForm, PanelCalendrier parPanelCalend)
+	public Controleur (Agenda parAgenda, PanelFormulaire parPanelForm, PanelCalendrier parPanelCalend, PanelAgenda parPanelAgend)
 		{
 		chAgenda = parAgenda;
 		chPanelFormulaire = parPanelForm;
 		chPanelCalendrier = parPanelCalend;
+		chPanelAgenda = parPanelAgend;
 		chPanelFormulaire.enregistreEcouteur(this);
 		chPanelCalendrier.enregistreEcouteur(this);
 		}
@@ -33,12 +36,12 @@ public class Controleur implements ActionListener
 		}
 	public void actionPerformed(ActionEvent parEvent)
 		{
-		for(int i=0; i<PanelCalendrier.chPanel.chLesJours.length; i++)
+		for(int i=0; i<chPanelCalendrier.chPanel.chLesJours.length; i++)
 			{
-			if(parEvent.getSource().equals((PanelCalendrier.chPanel.chLesJours[i])))
+			if(parEvent.getSource().equals((chPanelCalendrier.chPanel.chLesJours[i])))
 				{
 				modele.Date lautreDate = new modele.Date();
-				modele.Date laDate = new modele.Date(Integer.parseInt(PanelCalendrier.chPanel.chLesJours[i].getText()), lautreDate.getMois(), lautreDate.getAnnee());
+				modele.Date laDate = new modele.Date(Integer.parseInt(chPanelCalendrier.chPanel.chLesJours[i].getText()), lautreDate.getMois(), lautreDate.getAnnee());
 //				String laDate = PanelCalendrier.chPanel.chJoursSemaine[i%7-1].getText() + " " + PanelCalendrier.chPanel.chLesJours[i].getText() + " " + lautreDate2[2] + " " + lautreDate2[3];
 				chPanelCalendrier.setDate(laDate);
 				chPanelFormulaire.setDate(laDate);

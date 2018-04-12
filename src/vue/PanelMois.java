@@ -22,7 +22,8 @@ public class PanelMois extends JPanel implements ActionListener
 	{
 	static Controleur leControleur;
 	final static JLabel[] chJoursSemaine = new JLabel[7];
-	JButton[] chLesJours = new JButton[42]; 
+	JButton[] chLesJours = new JButton[50]; 
+	static int debutMois;
 	public PanelMois(Controleur parControleur, modele.Date today)
 		{
 		JPanel lePanel = new JPanel();
@@ -31,14 +32,10 @@ public class PanelMois extends JPanel implements ActionListener
 		lePanel1.setLayout(new GridLayout(6, 7));
 		
 		
-		DateFormat dfl = DateFormat.getDateInstance(DateFormat.FULL);
-		String leJour = dfl.format(new Date());
-		String[] leJour1 = leJour.split(" ");
-		String leJour2 = leJour1[0];
 		
-		int debutMois = Integer.parseInt(leJour1[1]);
 		int finMois = modele.Date.dernierJourDuMois(today.getMois(), today.getAnnee());
-		debutMois = finMois - (finMois - 1);
+		this.trouverDebutMois(today);
+		
 		
 		
 		String[] laSemaine = {"lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"};
@@ -53,24 +50,7 @@ public class PanelMois extends JPanel implements ActionListener
 			chJoursSemaine[i] = new JLabel(laSemaine[i]);
 			}
 		
-		for(int i=0; i<chLesJours.length; i++)
-			{
-			chLesJours[i] = new JButton();
-			chLesJours[i].setFocusPainted(false);
-			chLesJours[i].setContentAreaFilled(false);
-			chLesJours[i].setFocusable(false);
-			chLesJours[i].setEnabled(false);
-			}
-		
-		System.out.println("Début du mois: " + debutMois);
-		
-		for(int i=debutMois+6; i<finMois+7; i++)
-			{
-			chLesJours[i].setText(""+(i-6));
-			chLesJours[i].addActionListener(leControleur);
-			chLesJours[i].addActionListener(this);
-			chLesJours[i].setEnabled(true);
-			}
+		this.actualiserMois(today);
 		
 		
 		for(int i=0; i<7; i++)
@@ -97,25 +77,74 @@ public class PanelMois extends JPanel implements ActionListener
 		setLayout(groupLayout);
 		
 		}
+	
+	
+	public void actualiserMois(modele.Date parDate)
+		{
+		System.out.println(parDate.toString());
+		System.out.println(debutMois);
+		this.trouverDebutMois(parDate);
+		System.out.println(debutMois);
+		System.out.println(" ");
+		for(int i=0; i<chLesJours.length; i++)
+			{
+			chLesJours[i] = new JButton();
+			chLesJours[i].setFocusPainted(false);
+			chLesJours[i].setContentAreaFilled(false);
+			chLesJours[i].setFocusable(false);
+			chLesJours[i].setEnabled(false);
+			}
+	
+		for(int i=debutMois; i<modele.Date.dernierJourDuMois(parDate.getMois(), parDate.getAnnee())+6; i++)
+			{
+			chLesJours[i].setText(""+(i-5));
+			chLesJours[i].addActionListener(leControleur);
+			chLesJours[i].addActionListener(this);
+			chLesJours[i].setEnabled(true);
+			}
+		}
+	
 	public void ajouterCalendrier(JPanel parPanel, JButton[] parTab, int parDebut, int parFin)
 		{
-		for(int i=parDebut; i<parFin+10; i++)
+		for(int i=0; i<parFin+12; i++)
 			{
 			parPanel.add(parTab[i]);
 			}
 		}
 	public void actionPerformed(ActionEvent parEvent)
 		{
-		for(int i=0; i<42; i++)
+		for(int i=0; i<50; i++)
 			{
 			chLesJours[i].setContentAreaFilled(false);
 			}
-		for(int i=0; i<42; i++)
+		for(int i=0; i<50; i++)
 			{
 			if(parEvent.getSource().equals(chLesJours[i]))
 				{
 				chLesJours[i].setContentAreaFilled(true);
+				leControleur.chDate = new modele.Date(Integer.parseInt(chLesJours[i].getText()), new modele.Date().getMois(), new modele.Date().getAnnee());
 				}
+			}
+		}
+	public void trouverDebutMois(modele.Date parDate)
+		{
+		String debutSemaine = parDate.toString().split(" ")[0];
+		switch (debutSemaine)
+			{
+			case "lundi":
+				debutMois = 0;
+			case "mardi":
+				debutMois = 1;
+			case "mercredi":
+				debutMois = 2;
+			case "jeudi":
+				debutMois = 3;
+			case "vendredi":
+				debutMois = 4;
+			case "samedi":
+				debutMois = 5;
+			case "dimanche":
+				debutMois = 6;
 			}
 		}
 	}

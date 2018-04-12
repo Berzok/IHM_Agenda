@@ -23,7 +23,7 @@ public class PanelCalendrier  extends JPanel implements ActionListener
 	JLabel tabEtiquettes[] = new JLabel[12];
 	String tabIntitules[];
 	final static String[] chMois = {"Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"};
-	static PanelMois chPanel;
+	PanelMois chPanel;
 	public PanelCalendrier(Controleur parControleur, modele.Date today)
 		{
 		leControleur = parControleur;
@@ -91,20 +91,21 @@ public class PanelCalendrier  extends JPanel implements ActionListener
 		{
 		for(int i=0; i<tabBoutons.length; i++)
 			{
+			if(parEvt.getSource() == tabBoutons[0])
+				{
+				leJour = new modele.Date(leJour.getJour(), leJour.getMois()-1, leJour.getAnnee()); 
+				chPanel = new PanelMois(leControleur, leJour);
+				System.out.println("le bouton: " + leJour.toString());
+				break;
+				}
 			if(parEvt.getSource() == tabBoutons[1])
 				{
 				leJour = new modele.Date(leJour.getJour(), leJour.getMois()+1, leJour.getAnnee()); 
-				chPanel = new PanelMois(leControleur, leJour);
+				chPanel.actualiserMois(leJour);
 				System.out.println("le bouton: " + leJour.toString());
-				leControleur.chPanelFormulaire.chDate = leJour;
-				this.truc(leJour);
 				break;
 				}
 			}
-		}
-	public void truc(modele.Date parDate)
-		{
-		leControleur.changerDateFormulaire(parDate);
 		}
 	public void enregistreEcouteur(Controleur controleur)
 		{

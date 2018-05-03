@@ -23,14 +23,15 @@ public class PanelCalendrier  extends JPanel implements ActionListener
 	JLabel tabEtiquettes[] = new JLabel[12];
 	String tabIntitules[];
 	final static String[] chMois = {"Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"};
-	PanelMois chPanel;
+	static JPanel panelSud;
+	static PanelMois chPanel;
 	public PanelCalendrier(Controleur parControleur, modele.Date today)
 		{
 		leControleur = parControleur;
 		chPanel = new PanelMois(leControleur, today);
 		leJour = today;
 		
-		JPanel panelSud = new JPanel();
+		panelSud = new JPanel();
 		for (int i=0 ; i<tabNomBoutons.length ; i++)
 			{
 			tabBoutons[i] = new JButton(tabNomBoutons[i]);
@@ -55,32 +56,13 @@ public class PanelCalendrier  extends JPanel implements ActionListener
 		
 		String tabIntitules[] = {"Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche"};
 		JLabel tabEtiquettes[] = new JLabel[tabIntitules.length];
-		for(int i=0 ; i<tabEtiquettes.length ; i++) {
+		for(int i=0 ; i<tabEtiquettes.length ; i++)
+			{
 			tabEtiquettes[i] = new JLabel(tabIntitules[i]);
 //			panelCentre.add(tabEtiquettes[i],tabIntitules[i]); //ajout des Ã©tiquettes dans le panel centre
-		}
-		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(41)
-					.addComponent(panelSud, GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
-					.addGap(67))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addComponent(chPanel, GroupLayout.PREFERRED_SIZE, 445, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(chPanel, GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
-					.addGap(44)
-					.addComponent(panelSud, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
-		);
-		setLayout(groupLayout);
+			}
+		add(chPanel);
+		add(panelSud);
 //		add(panelCentre,BorderLayout.CENTER);
 //		panelCentre.setLayout(new GridLayout(1, 0, 0, 0));
 		
@@ -93,15 +75,25 @@ public class PanelCalendrier  extends JPanel implements ActionListener
 			{
 			if(parEvt.getSource() == tabBoutons[0])
 				{
-				leJour = new modele.Date(leJour.getJour(), leJour.getMois()-1, leJour.getAnnee()); 
+				leJour = new modele.Date(leJour.getJour(), leJour.getMois()-1, leJour.getAnnee());
+				System.out.println("Hahaha  " +leJour.toString());
+				System.out.println("On a enlevé le panel");
+				this.removeAll();
 				chPanel = new PanelMois(leControleur, leJour);
+				leControleur.chPanelCalendrier = this;
+				leControleur.chPanelCalendrier.enregistreEcouteur(leControleur);
+				leControleur.chPanelFormulaire.enregistreEcouteur(leControleur);
 				System.out.println("le bouton: " + leJour.toString());
+				this.add(chPanel);
+				this.add(panelSud);
+				this.revalidate();
+				this.repaint();
 				break;
 				}
 			if(parEvt.getSource() == tabBoutons[1])
 				{
 				leJour = new modele.Date(leJour.getJour(), leJour.getMois()+1, leJour.getAnnee()); 
-				chPanel.actualiserMois(leJour);
+				chPanel = new PanelMois(leControleur, leJour);
 				System.out.println("le bouton: " + leJour.toString());
 				break;
 				}

@@ -26,6 +26,7 @@ public class PanelMois extends JPanel implements ActionListener
 	static int debutMois;
 	public PanelMois(Controleur parControleur, modele.Date today)
 		{
+		System.out.println("LE PANEL MOIS " + today);
 		JPanel lePanel = new JPanel();
 		lePanel.setLayout(new GridLayout(1, 7));
 		JPanel lePanel1 = new JPanel();
@@ -84,7 +85,7 @@ public class PanelMois extends JPanel implements ActionListener
 		System.out.println(parDate.toString());
 		System.out.println(debutMois);
 		this.trouverDebutMois(parDate);
-		System.out.println(debutMois);
+		System.out.println(debutMois + "aaa");
 		System.out.println(" ");
 		for(int i=0; i<chLesJours.length; i++)
 			{
@@ -102,6 +103,7 @@ public class PanelMois extends JPanel implements ActionListener
 			chLesJours[i].addActionListener(this);
 			chLesJours[i].setEnabled(true);
 			}
+		this.revalidate();
 		}
 	
 	public void ajouterCalendrier(JPanel parPanel, JButton[] parTab, int parDebut, int parFin)

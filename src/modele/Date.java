@@ -114,8 +114,6 @@ public int getJour() {
 }
 
 public int getMois() { 
-	if(mois == 0)
-		return 12;
 	return mois;
 }
 

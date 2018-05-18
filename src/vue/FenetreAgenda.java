@@ -37,11 +37,12 @@ public class FenetreAgenda extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		setSize(750, 400);
+		JMenuBar menuBar = new JMenuBar();
+		this.setJMenuBar(menuBar);
+		this.add(menuBar);
 		PanelAgenda panelAgenda = new PanelAgenda();
 		getContentPane().add(panelAgenda);
 		panelAgenda.setLayout(new BoxLayout(panelAgenda, BoxLayout.LINE_AXIS));
-		JMenuBar menuBar = new JMenuBar();
-		this.setJMenuBar(menuBar);
 		JMenuItem lesChoix = new JMenuItem();
 	}
 }

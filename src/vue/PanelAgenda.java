@@ -21,6 +21,7 @@ public class PanelAgenda extends JPanel
 	public PanelAgenda() throws ParseException
 		{
 		CardLayout gestionnaireCartes = new CardLayout();
+		setLayout(gestionnaireCartes);
 		leAgenda = new Agenda();
 		leAgenda.ajout(new Evenement(new Date(5, 7, 1741), "Tourte", "Morrowind"));
 		leAgenda.ajout(new Evenement(new Date(13, 4, 2009), "Terezi", "Skaia"));
@@ -32,7 +33,6 @@ public class PanelAgenda extends JPanel
 		chControleur = new Controleur(leAgenda, lePanel1, lePanel, this);
 		add(lePanel);
 		add(lePanel1);
-		setLayout(gestionnaireCartes);
 		}
 	public void recreate_lePanel() throws ParseException
 		{

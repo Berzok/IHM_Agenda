@@ -38,10 +38,8 @@ public class Controleur implements ActionListener
 		{
 		for(int i=0; i<chPanelCalendrier.chPanel.chLesJours.length; i++)
 			{
-			System.out.println("actionPerformed, i=" + i);
 			if(parEvent.getSource() == ((chPanelCalendrier.chPanel.chLesJours[i])))
 				{
-				System.out.println("controleur boutons atteint");
 				modele.Date lautreDate = new modele.Date();
 				modele.Date laDate = new modele.Date(Integer.parseInt(chPanelCalendrier.chPanel.chLesJours[i].getText()), lautreDate.getMois(), lautreDate.getAnnee());
 //				String laDate = PanelCalendrier.chPanel.chJoursSemaine[i%7-1].getText() + " " + PanelCalendrier.chPanel.chLesJours[i].getText() + " " + lautreDate2[2] + " " + lautreDate2[3];

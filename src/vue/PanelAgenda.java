@@ -27,7 +27,6 @@ public class PanelAgenda extends JPanel
 		leAgenda.ajout(new Evenement(new Date(13, 4, 2009), "Terezi", "Skaia"));
 		leAgenda.afficherContenu();
 		lePanel = new PanelCalendrier(chControleur, new modele.Date()); lePanel.setSize(300, 400);
-		GroupLayout groupLayout = (GroupLayout) lePanel.getLayout();
 		lePanel1 = new PanelFormulaire(chControleur);
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		chControleur = new Controleur(leAgenda, lePanel1, lePanel, this);

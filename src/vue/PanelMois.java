@@ -1,48 +1,48 @@
 package vue;
 
-import modele.*;
+import modele.Date;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DateFormat;
-import java.util.Date;
 
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.xml.bind.ParseConversionEvent;
-
+@SuppressWarnings("serial")
 public class PanelMois extends JPanel implements ActionListener
 	{
 	static Controleur leControleur;
 	final static JLabel[] chJoursSemaine = new JLabel[7];
 	JButton[] chLesJours = new JButton[50]; 
-	static int debutMois;
-	public PanelMois(Controleur parControleur, modele.Date today)
+	int debutMois;
+	int finMois;
+	public PanelMois(Date today)
 		{
 		System.out.println("LE PANEL MOIS " + today);
-		JPanel lePanel = new JPanel();
-		lePanel.setLayout(new GridLayout(1, 7));
-		JPanel lePanel1 = new JPanel();
-		lePanel1.setLayout(new GridLayout(6, 7));
+				
+		finMois = 31;
+		
+		debutMois = trouverDebutMois(today);
+		
+		int debutMois2 = trouverDebutMois(new modele.Date(today.getJour(), today.getMois()+1, today.getAnnee()));  
+		
+		System.out.println("le début: " + debutMois);
+		int totalJours = debutMois + (finMois-debutMois) + debutMois2;
+		System.out.println("Nombre de jours: " + totalJours);
+		
+		if(totalJours == 35)
+			{
+			this.setLayout(new GridLayout(5, 7));
+			}
+		else
+			{
+			this.setLayout(new GridLayout(6, 7));
+			}		
 		
 		
-		
-		int finMois = modele.Date.dernierJourDuMois(today.getMois(), today.getAnnee());
-		this.trouverDebutMois(today);
-		
-		
-		
-		String[] laSemaine = {"lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"};
-		leControleur = parControleur;
-		int[] les31 = {1, 3, 5, 7, 8, 10, 12};
-		int[] les30 = {4, 6, 9, 11};
+		String[] laSemaine = {" lundi  ", "mardi  ", "mercredi  ", "jeudi  ", "vendredi  ", "samedi  ", "dimanche  "};
 		
 			
 		
@@ -56,35 +56,20 @@ public class PanelMois extends JPanel implements ActionListener
 		
 		for(int i=0; i<7; i++)
 			{
-			lePanel.add(chJoursSemaine[i]);
+			this.add(chJoursSemaine[i]);
 			}
 		
-		this.ajouterCalendrier(lePanel1, chLesJours, debutMois, finMois);
+		this.ajouterCalendrier(chLesJours, totalJours);
 		
-		
-		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addComponent(lePanel, GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
-				.addComponent(lePanel1, GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addComponent(lePanel, GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(lePanel1, GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE))
-		);
-		setLayout(groupLayout);
 		
 		}
 	
 	
-	public void actualiserMois(modele.Date parDate)
+	public void actualiserMois(Date parDate)
 		{
 		System.out.println(parDate.toString());
 		System.out.println(debutMois);
-		this.trouverDebutMois(parDate);
+		debutMois = trouverDebutMois(parDate);
 		System.out.println(debutMois + "aaa");
 		System.out.println(" ");
 		for(int i=0; i<chLesJours.length; i++)
@@ -96,9 +81,9 @@ public class PanelMois extends JPanel implements ActionListener
 			chLesJours[i].setEnabled(false);
 			}
 	
-		for(int i=debutMois; i<modele.Date.dernierJourDuMois(parDate.getMois(), parDate.getAnnee())+6; i++)
+		for(int i=debutMois; i<Date.dernierJourDuMois(parDate.getMois(), parDate.getAnnee())+6; i++)
 			{
-			chLesJours[i].setText(""+(i-5));
+			chLesJours[i].setText(""+i);
 			chLesJours[i].addActionListener(leControleur);
 			chLesJours[i].addActionListener(this);
 			chLesJours[i].setEnabled(true);
@@ -106,11 +91,11 @@ public class PanelMois extends JPanel implements ActionListener
 		this.revalidate();
 		}
 	
-	public void ajouterCalendrier(JPanel parPanel, JButton[] parTab, int parDebut, int parFin)
+	public void ajouterCalendrier(JButton[] parTab, int parFin)
 		{
-		for(int i=0; i<parFin+12; i++)
+		for(int i=0; i<parFin; i++)
 			{
-			parPanel.add(parTab[i]);
+			this.add(parTab[i]);
 			}
 		}
 	public void actionPerformed(ActionEvent parEvent)
@@ -124,29 +109,31 @@ public class PanelMois extends JPanel implements ActionListener
 			if(parEvent.getSource().equals(chLesJours[i]))
 				{
 				chLesJours[i].setContentAreaFilled(true);
-				leControleur.chDate = new modele.Date(Integer.parseInt(chLesJours[i].getText()), new modele.Date().getMois(), new modele.Date().getAnnee());
+				Controleur.chDate = new modele.Date(Integer.parseInt(chLesJours[i].getText()), new modele.Date().getMois(), new modele.Date().getAnnee());
 				}
 			}
 		}
-	public void trouverDebutMois(modele.Date parDate)
+	private static int trouverDebutMois(Date parDate)
 		{
 		String debutSemaine = parDate.toString().split(" ")[0];
+		System.out.println("qdqsdqsd" + parDate.toString());
 		switch (debutSemaine)
 			{
 			case "lundi":
-				debutMois = 0;
+				return 0;
 			case "mardi":
-				debutMois = 1;
+				return 1;
 			case "mercredi":
-				debutMois = 2;
+				return 2;
 			case "jeudi":
-				debutMois = 3;
+				return 3;
 			case "vendredi":
-				debutMois = 4;
+				return 4;
 			case "samedi":
-				debutMois = 5;
+				return 5;
 			case "dimanche":
-				debutMois = 6;
+				return 6;
 			}
+		return 0;
 		}
 	}

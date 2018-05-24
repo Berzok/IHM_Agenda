@@ -11,13 +11,32 @@ import java.awt.GridLayout;
 import java.awt.Component;
 import java.awt.CardLayout;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PanelAgenda.
+ */
 public class PanelAgenda extends JPanel
 	{
-	Controleur chControleur;
-	Agenda leAgenda;
-	PanelCalendrier lePanel;
-	PanelFormulaire lePanel1;
 	
+	/** The ch controleur. */
+	Controleur chControleur;
+	
+	/** The le agenda. */
+	Agenda leAgenda;
+	
+	/** The le panel. */
+	PanelCalendrier panelCalendrier;
+	
+	/** The le panel 1. */
+	PanelFormulaire panelFormulaire;
+	
+	PanelAffichage panelAffichage;
+	
+	/**
+	 * Instantiates a new panel agenda.
+	 *
+	 * @throws ParseException the parse exception
+	 */
 	public PanelAgenda() throws ParseException
 		{
 		CardLayout gestionnaireCartes = new CardLayout();
@@ -26,22 +45,29 @@ public class PanelAgenda extends JPanel
 		leAgenda.ajout(new Evenement(new Date(5, 7, 1741), "Tourte", "Morrowind"));
 		leAgenda.ajout(new Evenement(new Date(13, 4, 2009), "Terezi", "Skaia"));
 		leAgenda.afficherContenu();
-		lePanel = new PanelCalendrier(chControleur, new modele.Date()); lePanel.setSize(300, 400);
-		lePanel1 = new PanelFormulaire(chControleur);
+		panelCalendrier = new PanelCalendrier(new modele.Date()); panelCalendrier.setSize(300, 400);
+		panelFormulaire = new PanelFormulaire();
+		chControleur = new Controleur(leAgenda, panelFormulaire, panelCalendrier, panelAffichage, this);
+		panelAffichage = new PanelAffichage(new Date(), leAgenda);
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-		chControleur = new Controleur(leAgenda, lePanel1, lePanel, this);
-		add(lePanel);
-		add(lePanel1);
+		add(panelCalendrier);
+		add(panelFormulaire);
+		add(panelAffichage);
 		}
+	
+	/**
+	 * Recreate le panel.
+	 *
+	 * @throws ParseException the parse exception
+	 */
 	public void recreate_lePanel() throws ParseException
 		{
-		lePanel = new PanelCalendrier(chControleur, new modele.Date()); lePanel.setSize(300, 400);
-		GroupLayout groupLayout = (GroupLayout) lePanel.getLayout();
-		lePanel1 = new PanelFormulaire(chControleur);
+		panelCalendrier = new PanelCalendrier(new modele.Date()); panelCalendrier.setSize(300, 400);
+		GroupLayout groupLayout = (GroupLayout) panelCalendrier.getLayout();
+		panelFormulaire = new PanelFormulaire();
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-		chControleur = new Controleur(leAgenda, lePanel1, lePanel, this);
-		add(lePanel);
-		add(lePanel1);
+		add(panelCalendrier);
+		add(panelFormulaire);
 		}
 	}
 

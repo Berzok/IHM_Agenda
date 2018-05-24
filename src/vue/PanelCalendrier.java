@@ -9,23 +9,47 @@ import javax.swing.*;
 import modele.Date;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PanelCalendrier.
+ */
 @SuppressWarnings("serial")
 public class PanelCalendrier  extends JPanel implements ActionListener
 	{
+	
+	/** The le controleur. */
 	Controleur leControleur;
 	
+	/** The tab nom boutons. */
 	String tabNomBoutons[] = {"<--", "-->"};
+	
+	/** The le jour. */
 	Date leJour;
+	
+	/** The tab boutons. */
 	JButton tabBoutons[] = new JButton[tabNomBoutons.length];
+	
+	/** The tab etiquettes. */
 	JLabel tabEtiquettes[] = new JLabel[12];
+	
+	/** The tab intitules. */
 	String tabIntitules[];
+	
+	/** The Constant chMois. */
 	final static String[] chMois = {"Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"};
-	static PanelMois chPanel;
-	public PanelCalendrier(Controleur parControleur, Date today)
+	
+	/** The ch panel. */
+	 PanelMois panelMois;
+	
+	/**
+	 * Instantiates a new panel calendrier.
+	 *
+	 * @param today the today
+	 */
+	public PanelCalendrier(Date today)
 		{
 		this.setLayout(new BorderLayout());
-		chPanel = new PanelMois(today);
-		leControleur = parControleur;
+		panelMois = new PanelMois(today);
 		leJour = today;
 		
 		JPanel panelSud = new JPanel();
@@ -54,12 +78,15 @@ public class PanelCalendrier  extends JPanel implements ActionListener
 			}
 		
 		
-		this.add(chPanel, BorderLayout.CENTER);
+		this.add(panelMois, BorderLayout.CENTER);
 		this.add(panelSud, BorderLayout.SOUTH);
 		
 	} //constrcuteur du panelfils
 
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	public void actionPerformed(ActionEvent parEvt)
 		{
 		for(int i=0; i<tabBoutons.length; i++)
@@ -67,31 +94,40 @@ public class PanelCalendrier  extends JPanel implements ActionListener
 			if(parEvt.getSource() == tabBoutons[0])
 				{
 				leJour = new modele.Date(leJour.getJour(), leJour.getMois()-1, leJour.getAnnee()); 
-				chPanel = new PanelMois(leJour);
-				Controleur.chPanelCalendrier = this;
-				Controleur.chPanelCalendrier.enregistreEcouteur(leControleur);
-				Controleur.chPanelFormulaire.enregistreEcouteur(leControleur);
-				System.out.println("le bouton: " + leJour.toString());
+				panelMois = new PanelMois(leJour);
 				break;
 				}
 			if(parEvt.getSource() == tabBoutons[1])
 				{
 				leJour = new modele.Date(leJour.getJour(), leJour.getMois()+1, leJour.getAnnee()); 
-				chPanel = new PanelMois(leJour);
+				panelMois = new PanelMois(leJour);
 				System.out.println("le bouton: " + leJour.toString());
 				break;
 				}
 			}
 		}
+	
+	/**
+	 * Enregistre ecouteur.
+	 *
+	 * @param controleur the controleur
+	 */
 	public void enregistreEcouteur(Controleur controleur)
 		{
-		for(int i=0; i<chPanel.chLesJours.length; i++)
+		for(int i=0; i<panelMois.chLesJours.length; i++)
 			{
-			chPanel.chLesJours[i].addActionListener(controleur);
+			panelMois.chLesJours[i].addActionListener(controleur);
 			}
 		}
+	
+	/**
+	 * Sets the date.
+	 *
+	 * @param parDate the new date
+	 */
 	public void setDate(modele.Date parDate)
 		{
 		leJour = parDate;
+		
 		}
 	}

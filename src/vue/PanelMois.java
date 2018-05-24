@@ -10,14 +10,34 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PanelMois.
+ */
 @SuppressWarnings("serial")
 public class PanelMois extends JPanel implements ActionListener
 	{
-	static Controleur leControleur;
+	
+	/** The le controleur. */
+	Controleur leControleur;
+	
+	/** The Constant chJoursSemaine. */
 	final static JLabel[] chJoursSemaine = new JLabel[7];
+	
+	/** The ch les jours. */
 	JButton[] chLesJours = new JButton[50]; 
+	
+	/** The debut mois. */
 	int debutMois;
+	
+	/** The fin mois. */
 	int finMois;
+	
+	/**
+	 * Instantiates a new panel mois.
+	 *
+	 * @param today the today
+	 */
 	public PanelMois(Date today)
 		{
 		System.out.println("LE PANEL MOIS " + today);
@@ -29,17 +49,12 @@ public class PanelMois extends JPanel implements ActionListener
 		int debutMois2 = trouverDebutMois(new modele.Date(today.getJour(), today.getMois()+1, today.getAnnee()));  
 		
 		System.out.println("le début: " + debutMois);
-		int totalJours = debutMois + (finMois-debutMois) + debutMois2;
+		int totalJours = debutMois + finMois;
 		System.out.println("Nombre de jours: " + totalJours);
+		System.out.println("Fin du mois: " + finMois);
 		
-		if(totalJours == 35)
-			{
-			this.setLayout(new GridLayout(5, 7));
-			}
-		else
-			{
-			this.setLayout(new GridLayout(6, 7));
-			}		
+		
+		this.setLayout(new GridLayout(0, 7));
 		
 		
 		String[] laSemaine = {" lundi  ", "mardi  ", "mercredi  ", "jeudi  ", "vendredi  ", "samedi  ", "dimanche  "};
@@ -65,6 +80,11 @@ public class PanelMois extends JPanel implements ActionListener
 		}
 	
 	
+	/**
+	 * Actualiser mois.
+	 *
+	 * @param parDate the par date
+	 */
 	public void actualiserMois(Date parDate)
 		{
 		System.out.println(parDate.toString());
@@ -81,7 +101,7 @@ public class PanelMois extends JPanel implements ActionListener
 			chLesJours[i].setEnabled(false);
 			}
 	
-		for(int i=debutMois; i<Date.dernierJourDuMois(parDate.getMois(), parDate.getAnnee())+6; i++)
+		for(int i=trouverDebutMois(parDate); i<=finMois; i++)
 			{
 			chLesJours[i].setText(""+i);
 			chLesJours[i].addActionListener(leControleur);
@@ -91,6 +111,12 @@ public class PanelMois extends JPanel implements ActionListener
 		this.revalidate();
 		}
 	
+	/**
+	 * Ajouter calendrier.
+	 *
+	 * @param parTab the par tab
+	 * @param parFin the par fin
+	 */
 	public void ajouterCalendrier(JButton[] parTab, int parFin)
 		{
 		for(int i=0; i<parFin; i++)
@@ -98,6 +124,10 @@ public class PanelMois extends JPanel implements ActionListener
 			this.add(parTab[i]);
 			}
 		}
+	
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	public void actionPerformed(ActionEvent parEvent)
 		{
 		for(int i=0; i<50; i++)
@@ -109,10 +139,16 @@ public class PanelMois extends JPanel implements ActionListener
 			if(parEvent.getSource().equals(chLesJours[i]))
 				{
 				chLesJours[i].setContentAreaFilled(true);
-				Controleur.chDate = new modele.Date(Integer.parseInt(chLesJours[i].getText()), new modele.Date().getMois(), new modele.Date().getAnnee());
 				}
 			}
 		}
+	
+	/**
+	 * Trouver debut mois.
+	 *
+	 * @param parDate the par date
+	 * @return the int
+	 */
 	private static int trouverDebutMois(Date parDate)
 		{
 		String debutSemaine = parDate.toString().split(" ")[0];

@@ -2,6 +2,7 @@ package modele;
 import java.util.ArrayList ;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.TreeMap;
 import java.util.TreeSet ;
@@ -10,20 +11,24 @@ import java.util.TreeSet ;
 public class Agenda implements Comparable<Evenement> {
 	private ArrayList<Evenement> listEvts ;
 	private TreeSet<Evenement> arbreEvts ;
-	private TreeMap<Integer,Evenement> mapEvts ;
+	private TreeMap<Integer, TreeSet <Evenement>> mapEvts ;
 	
 	// Question 1, 5
 	public Agenda() {
 		listEvts = new ArrayList<Evenement>();
 		arbreEvts = new TreeSet<Evenement>() ;
-		mapEvts = new TreeMap<Integer, Evenement>();
+		mapEvts = new TreeMap<Integer, TreeSet <Evenement>>();
 	}
 	
 	// Question 1, 5
 	public void ajout(Evenement parEvt) {
 		listEvts.add(parEvt);
 //		arbreEvts.add(parEvt);
-		//mapEvts.add(new GregorianCalendar.add(parEvt.getChDate()).get(Calendar.WEEK_OF_YEAR), parEvt) ;
+		GregorianCalendar date = new GregorianCalendar (parEvt.getChDate().getAnnee(), parEvt.getChDate().getMois()-1,parEvt.getChDate().getJour());		
+		int numSemaine = date.get (Calendar.WEEK_OF_YEAR);
+		TreeSet <Evenement> arbre = new TreeSet <Evenement> ();
+		arbre.add(parEvt);
+		mapEvts.put(numSemaine, arbre) ;
 	}
 	
 	// Question 2
@@ -65,6 +70,14 @@ public class Agenda implements Comparable<Evenement> {
 		String leString =  "Le "+ this.listEvts.get(parIndice).getChDate() + ", " + this.listEvts.get(parIndice).getChNom() + " à " + this.listEvts.get(parIndice).getChLieu();
 		return leString;
 		}
+
+	/**
+	 * @return
+	 */
+	public TreeMap<Integer, TreeSet <Evenement>> getMap() {
+		// TODO Auto-generated method stub
+		return mapEvts;
+	}
 	}
 
 

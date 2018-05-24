@@ -3,7 +3,7 @@ package modele;
 import javax.swing.JButton;
 
 
-public class Evenement{
+public class Evenement implements Comparable <Evenement>{
 	private Date chDate;
 	private String chNom;
 	private String chLieu;
@@ -54,7 +54,7 @@ public class Evenement{
 //		return E;
 //	}//lireEvenement
 	
-	public int comparTo(Evenement parEvent){
+	public int compareTo(Evenement parEvent){
 //		if (this.chDate.comparTo(parEvent.chDate)!=0)
 			{
 //				return this.chDate.comparTo(parEvent.chDate);//les dates sont identiques

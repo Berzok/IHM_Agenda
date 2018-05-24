@@ -45,10 +45,9 @@ public class PanelFormulaire extends JPanel implements ActionListener
 	 * Create the panel.
 	 * @throws ParseException 
 	 */
-	public PanelFormulaire(Controleur parControleur) throws ParseException
+	public PanelFormulaire() throws ParseException
 		{
 		setBackground(new Color(222, 184, 135));
-		leControleur = parControleur;
 		Date today = new Date();
 		DateFormat dfl = DateFormat.getDateInstance(DateFormat.FULL);
 		

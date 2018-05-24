@@ -10,10 +10,16 @@ import javax.swing.*;
 
 import javax.swing.BoxLayout;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class FenetreAgenda.
+ */
 public class FenetreAgenda extends JFrame {
 
 	/**
 	 * Launch the application.
+	 *
+	 * @param args the arguments
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -30,13 +36,12 @@ public class FenetreAgenda extends JFrame {
 
 	/**
 	 * Create the frame.
-	 * @throws ParseException 
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	public FenetreAgenda() throws ParseException {
 		setTitle("Agenda");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		setSize(750, 400);
+		
 		JMenuBar menuBar = new JMenuBar();
 		this.setJMenuBar(menuBar);
 		this.add(menuBar);
@@ -44,5 +49,10 @@ public class FenetreAgenda extends JFrame {
 		getContentPane().add(panelAgenda);
 		panelAgenda.setLayout(new BoxLayout(panelAgenda, BoxLayout.LINE_AXIS));
 		JMenuItem lesChoix = new JMenuItem();
+		
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		setSize(1400, 400);
 	}
 }
